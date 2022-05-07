@@ -19,14 +19,9 @@ public class Categories_StepDef {
 
     @Given("I send {string} request to {string}")
     public void i_send_request_to(String request, String endpoint) {
-
-        switch (request) {
-            case "GET":
-                response = getCategories(endpoint, requestSpecification);
-                break;
+        if (request.equals("GET")) {
+            response = getCategories(endpoint, requestSpecification);
         }
-
-
     }
 
     @Then("http response code should be as {int}")

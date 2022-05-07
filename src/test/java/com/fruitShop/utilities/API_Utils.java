@@ -1,5 +1,6 @@
 package com.fruitShop.utilities;
 
+import static com.fruitShop.utilities.ConfigurationReader.getProperty;
 import static io.restassured.RestAssured.*;
 
 import com.fruitShop.api.pojo.Customer;
@@ -27,23 +28,53 @@ public class API_Utils {
         switch (request) {
             case "GET":
                 return given(requestSpecification).when().get();
-            case "GET_SINGLE":
-                return given(requestSpecification).when().get("{id}");
             case "POST":
                 Response response = given(requestSpecification).when().post();
-                String customer_url = response.jsonPath().getString("customer_url");
-                postedCustomerId = Integer.parseInt(customer_url.substring(customer_url.lastIndexOf('/') + 1));
+                //String customer_url = response.jsonPath().getString("customer_url");
+                postedCustomerId = getPostedCustomerId(response, getProperty("customer_id_path"));
                 return response;
             case "PUT":
-                return given(requestSpecification).when().put("{id}");
+                return given(requestSpecification).when().put(getProperty("id_path_param"));
             case "DELETE":
-                return given(requestSpecification).when().delete("{id}");
+                return given(requestSpecification).when().delete(getProperty("id_path_param"));
             case "PATCH":
-                return given(requestSpecification).when().patch("{id}");
+                return given(requestSpecification).when().patch(getProperty("id_path_param"));
             default:
                 throw new DefaultException();
         }
     }
+
+
+
+    public static Response sendRequestToGivenEndpoint(String request, String endpoint, RequestSpecification requestSpecification){
+
+        switch (request){
+
+            case "GET":
+                return given(requestSpecification).when().get(endpoint);
+            case "POST":
+                return given(requestSpecification).when().post(endpoint);
+            default:
+                throw new DefaultException();
+        }
+    }
+
+
+
+    public static int getPostedCustomerId(Response response, String path){
+        String customer_url = response.jsonPath().getString("customer_url");
+        return Integer.parseInt(customer_url.substring(customer_url.lastIndexOf('/') + 1));
+    }
+
+    public static int returnPostedCustomerId(){
+        return postedCustomerId;
+    }
+
+
+
+
+
+
 
     public static boolean responseBodyPathContainsGivenList(Response response, String path, List<String> givenList) {
         return response.jsonPath().getList(path).containsAll(givenList);
@@ -98,12 +129,10 @@ public class API_Utils {
     }
 
 
-    public static int getPostedCustomerId(){
-        return postedCustomerId;
-    }
+
 
     public static RequestSpecification pathParamForDelete(){
-        return given().pathParam("id", getPostedCustomerId());
+        return given().pathParam("id", returnPostedCustomerId());
     }
 
     public static boolean responseBodyPathEqualsToGivenString(Response response, String path, String givenStr){
@@ -127,5 +156,13 @@ public class API_Utils {
         customerMapForPost.put("lastname", "PUT Request TEST");
         return customerMapForPost;
     }
+
+
+
+
+
+
+
+
 
 }
