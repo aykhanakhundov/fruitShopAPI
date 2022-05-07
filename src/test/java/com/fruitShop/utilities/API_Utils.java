@@ -2,40 +2,130 @@ package com.fruitShop.utilities;
 
 import static io.restassured.RestAssured.*;
 
+import com.fruitShop.api.pojo.Customer;
+import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class API_Utils {
 
+
+    static int postedCustomerId;
 
     public static void setBasePath(String basePath) {
         RestAssured.basePath = basePath;
     }
 
 
-    public static Response sendRequest(String request) {
+    public static Response sendRequest(String request, RequestSpecification requestSpecification) {
         switch (request) {
             case "GET":
-                return when().get();
+                return given(requestSpecification).when().get();
+            case "GET_SINGLE":
+                return given(requestSpecification).when().get("{id}");
             case "POST":
-                return when().post();
+                Response response = given(requestSpecification).when().post();
+                String customer_url = response.jsonPath().getString("customer_url");
+                postedCustomerId = Integer.parseInt(customer_url.substring(customer_url.lastIndexOf('/') + 1));
+                return response;
             case "PUT":
-                return when().put();
+                return given(requestSpecification).when().put("{id}");
+            case "DELETE":
+                return given(requestSpecification).when().delete("{id}");
+            case "PATCH":
+                return given(requestSpecification).when().patch("{id}");
             default:
                 throw new DefaultException();
         }
     }
 
-    public static boolean responseBodyPathContainsGivenList(Response response, String path, List<String> givenList){
+    public static boolean responseBodyPathContainsGivenList(Response response, String path, List<String> givenList) {
         return response.jsonPath().getList(path).containsAll(givenList);
     }
 
 
+    public static RequestSpecification setHeader(String header, String value) {
+        switch (header) {
+            case "Accept":
+                return given().accept(value);
+            case "Content-Type":
+                return given().contentType(value);
+            default:
+                throw new DefaultException();
+        }
+    }
 
 
+    public static RequestSpecification setBody(String bodyType, RequestSpecification requestSpecification) {
+        switch (bodyType) {
+            case "customer pojo":
+                return given(requestSpecification).body(setCustomer());
+            case "customer map":
+                return given(requestSpecification).body(setCustomerMapForPost());
+            case "customer patch":
+                return given(requestSpecification).body(mapForPatchRequestCustomer());
+            case "customer put":
+                return given(requestSpecification).body(setCustomerMapForPut());
+            default:
+                throw new DefaultException();
+        }
+    }
+
+    public static Customer setCustomer() {
+        Faker faker = new Faker();
+        Customer customer = new Customer();
+        customer.setFirstName(faker.name().firstName());
+        customer.setLastName(faker.name().lastName());
+        customer.setOrdersUrl(faker.letterify("?????"));
+        //System.out.println("customer = " + customer);
+        return customer;
+    }
+
+
+    public static Map<String, String> setCustomerMapForPost() {
+        Faker faker = new Faker();
+        Map<String, String> customerMapForPost = new HashMap<>();
+        customerMapForPost.put("firstname", faker.name().firstName());
+        customerMapForPost.put("lastname", faker.name().lastName());
+        //customerMapForPost.put("orders_url", faker.letterify("??????"));
+        return customerMapForPost;
+    }
+
+
+    public static int getPostedCustomerId(){
+        return postedCustomerId;
+    }
+
+    public static RequestSpecification pathParamForDelete(){
+        return given().pathParam("id", getPostedCustomerId());
+    }
+
+    public static boolean responseBodyPathEqualsToGivenString(Response response, String path, String givenStr){
+        return response.jsonPath().getString(path).equals(givenStr);
+    }
+
+
+    public static RequestSpecification pathGivenValueToGivenParam(String pathParam, String value){
+        return given().contentType(ContentType.JSON).pathParam(pathParam, value);
+    }
+
+    public static Map<String, String> mapForPatchRequestCustomer(){
+        Map<String, String> customerMapForPatch = new HashMap<>();
+        customerMapForPatch.put("firstname", "update for PATCH request");
+        return customerMapForPatch;
+    }
+
+    public static Map<String, String> setCustomerMapForPut() {
+        Map<String, String> customerMapForPost = new HashMap<>();
+        customerMapForPost.put("firstname", "PUT Request TEST");
+        customerMapForPost.put("lastname", "PUT Request TEST");
+        return customerMapForPost;
+    }
 
 }

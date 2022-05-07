@@ -15,7 +15,6 @@ import java.util.List;
 public class Categories_StepDef {
 
     Response response = null;
-    List<String> actualCategoryNames;
     RequestSpecification requestSpecification;
 
     @Given("I send {string} request to {string}")
@@ -49,9 +48,8 @@ public class Categories_StepDef {
 
 
     @And("http response body path {string} should be {string}")
-    public void httpResponseBodyPathShouldBe(String path, String expectedValue) {
-
-
+    public void httpResponseBodyPathShouldBe(String pathParam, String value) {
+        assertTrue(responseBodyPathEqualsToGivenString(response, pathParam, value));
     }
 
 
