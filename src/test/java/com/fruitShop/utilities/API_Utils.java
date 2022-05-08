@@ -2,7 +2,6 @@ package com.fruitShop.utilities;
 
 import static com.fruitShop.utilities.ConfigurationReader.getProperty;
 import static io.restassured.RestAssured.*;
-
 import com.fruitShop.api.pojo.Customer;
 import com.fruitShop.api.pojo.Item;
 import com.github.javafaker.Faker;
@@ -32,7 +31,6 @@ public class API_Utils {
                 return given(requestSpecification).when().get();
             case "POST":
                 Response response = given(requestSpecification).when().post();
-                //String customer_url = response.jsonPath().getString("customer_url");
                 postedCustomerId = getPostedCustomerId(response, getProperty("customer_id_path"));
                 return response;
             case "PUT":
@@ -47,9 +45,8 @@ public class API_Utils {
     }
 
 
-
-    public static Response sendRequestToGivenEndpoint(String request, String endpoint, RequestSpecification requestSpecification){
-        switch (request){
+    public static Response sendRequestToGivenEndpoint(String request, String endpoint, RequestSpecification requestSpecification) {
+        switch (request) {
 
             case "GET":
                 return given(requestSpecification).when().get(endpoint);
@@ -58,6 +55,8 @@ public class API_Utils {
                 response.prettyPrint();
                 itemId = Integer.parseInt(response.jsonPath().getString("item_url").substring(24));
                 return response;
+            case "POST ":
+                return given(requestSpecification).when().post(endpoint);
             case "DELETE":
                 return given(requestSpecification).when().delete(endpoint);
             default:
@@ -66,20 +65,14 @@ public class API_Utils {
     }
 
 
-
-    public static int getPostedCustomerId(Response response, String path){
+    public static int getPostedCustomerId(Response response, String path) {
         String customer_url = response.jsonPath().getString("customer_url");
         return Integer.parseInt(customer_url.substring(customer_url.lastIndexOf('/') + 1));
     }
 
-    public static int returnPostedCustomerId(){
+    public static int returnPostedCustomerId() {
         return postedCustomerId;
     }
-
-
-
-
-
 
 
     public static boolean responseBodyPathContainsGivenList(Response response, String path, List<String> givenList) {
@@ -137,27 +130,25 @@ public class API_Utils {
     }
 
 
-
-
-    public static RequestSpecification pathParamForDelete(){
+    public static RequestSpecification pathParamForDelete() {
         return given().pathParam("id", returnPostedCustomerId());
     }
 
-    public static boolean responseBodyPathEqualsToGivenString(Response response, String path, String givenStr){
+    public static boolean responseBodyPathEqualsToGivenString(Response response, String path, String givenStr) {
         return response.jsonPath().getString(path).equals(givenStr);
     }
 
 
-    public static RequestSpecification pathGivenValueToGivenParam(String pathParam, String value){
+    public static RequestSpecification pathGivenValueToGivenParam(String pathParam, String value) {
         return given().contentType(ContentType.JSON).pathParam(pathParam, value);
     }
 
-    public static RequestSpecification pathGivenMapAsPathParams(Map<String, String> mapOfParams){
+    public static RequestSpecification pathGivenMapAsPathParams(Map<String, String> mapOfParams) {
         return given().contentType(ContentType.JSON).pathParams(mapOfParams);
     }
 
 
-    public static Map<String, String> mapForPatchRequestCustomer(){
+    public static Map<String, String> mapForPatchRequestCustomer() {
         Map<String, String> customerMapForPatch = new HashMap<>();
         customerMapForPatch.put("firstname", "update for PATCH request");
         return customerMapForPatch;
@@ -171,24 +162,23 @@ public class API_Utils {
     }
 
 
-
-    public static Item setItem(){
+    public static Item setItem() {
         Item itemPojo = new Item();
         Faker faker = new Faker();
-        itemPojo.setQuantity(faker.number().numberBetween(1,10));
-        itemPojo.setPrice(faker.number().randomDouble(2,1,10));
+        itemPojo.setQuantity(faker.number().numberBetween(1, 10));
+        itemPojo.setPrice(faker.number().randomDouble(2, 1, 10));
         itemPojo.setItemUrl(getProperty("item_url"));
         itemPojo.setProductUrl(getProperty("product_url"));
-       return itemPojo;
+        return itemPojo;
     }
 
 
-    public static String getOrderId(){
-        return getProperty("item_url").substring(13,17);
+    public static String getOrderId() {
+        return getProperty("item_url").substring(13, 17);
     }
 
 
-    public static String getItemId(){
+    public static String getItemId() {
         return itemId + "";
     }
 

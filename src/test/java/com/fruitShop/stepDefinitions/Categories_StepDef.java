@@ -3,13 +3,9 @@ package com.fruitShop.stepDefinitions;
 import static com.fruitShop.api.CategoriesEndpoints.*;
 import static com.fruitShop.utilities.API_Utils.*;
 import static org.junit.Assert.*;
-
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
+import io.cucumber.java.en.*;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-
 import java.util.List;
 
 public class Categories_StepDef {

@@ -2,23 +2,16 @@ package com.fruitShop.stepDefinitions;
 
 import static com.fruitShop.utilities.API_Utils.*;
 import static org.junit.Assert.*;
-
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import io.cucumber.java.it.Ma;
+import io.cucumber.java.en.*;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class Customers_StepDef {
+public class Default_StepDef {
 
     Response response;
     RequestSpecification requestSpecification;
@@ -69,7 +62,7 @@ public class Customers_StepDef {
 
     @And("I send {string} request for deleted customer")
     public void iSendRequestForDeletedCustomer(String request) {
-        response = RestAssured.given().pathParam("id",returnPostedCustomerId()).when().get("{id}");
+        response = RestAssured.given().pathParam("id", returnPostedCustomerId()).when().get("{id}");
     }
 
 
@@ -82,7 +75,6 @@ public class Customers_StepDef {
     public void httpResponseBodyPathShouldBeAs(String pathParam, String value) {
         assertTrue(responseBodyPathEqualsToGivenString(response, pathParam, value));
     }
-
 
 
     @And("I add {string} and {string} path parameters and values from recent added item")

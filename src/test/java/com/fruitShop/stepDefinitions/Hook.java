@@ -6,14 +6,9 @@ import io.restassured.RestAssured;
 
 public class Hook {
 
-
     @Before
     public void setup(){
         RestAssured.baseURI = ConfigurationReader.getProperty("base_url");
     }
-
-
-
-
 
 }
