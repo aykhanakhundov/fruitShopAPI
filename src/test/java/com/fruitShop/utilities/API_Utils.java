@@ -49,13 +49,13 @@ public class API_Utils {
 
 
     public static Response sendRequestToGivenEndpoint(String request, String endpoint, RequestSpecification requestSpecification){
-
         switch (request){
 
             case "GET":
                 return given(requestSpecification).when().get(endpoint);
             case "POST":
                 Response response = given(requestSpecification).when().post(endpoint);
+                response.prettyPrint();
                 itemId = Integer.parseInt(response.jsonPath().getString("item_url").substring(24));
                 return response;
             case "DELETE":

@@ -9,11 +9,12 @@ Feature: Orders API tests
   Scenario: Get all the orders
     When I send "GET" request
     Then http response code should be 200
-    And http response body path "orders.createdAt[0]" should be as "2022-05-07T02:05:15.134Z"
+    And http response body path "orders.createdAt[0]" should be as "2022-05-08T02:05:18.168Z"
     And http response body path "orders.state[0]" should be as "ordered"
     And http response body path "orders.order_url[0]" should be as "/shop/orders/1432"
 
 
+    # there is no way to create an order, below 3 scenarios depend on orders and their statuses in jsonBody
 #    # will fail if the order status is not "created"
 #  Scenario: Purchase (POST) an order
 #    And I add "id" as path param, and "1432" as value
@@ -33,10 +34,10 @@ Feature: Orders API tests
 #
 #    # there is no way to create an order, so delete order request is limited
 #  Scenario: Delete an order
-#    And I add "id" as path param, and "7944" as value
+#    And I add "id" as path param, and "7902" as value
 #    When I send "DELETE" request to "{id}" endpoint
 #    Then http response code should be 200
-#    And I add "id" as path param, and "7944" as value
+#    And I add "id" as path param, and "7902" as value
 #    When I send "GET" request to "{id}" endpoint
 #    Then http response code should be 404
 
@@ -70,10 +71,10 @@ Feature: Orders API tests
     Then http response code should be 200
 
 
-    Scenario: Get an item of an order
-      And I add "oid" and "iid" path parameters, "7957" and "38" as values
-      When I send "GET" request to "{oid}/items/{iid}" endpoint
-      Then http response code should be 200
+  Scenario: Get an item of an order
+    And I add "oid" and "iid" path parameters, "2242" and "6" as values
+    When I send "GET" request to "{oid}/items/{iid}" endpoint
+    Then http response code should be 200
 
 
 
