@@ -7,11 +7,15 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.it.Ma;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Customers_StepDef {
@@ -80,6 +84,22 @@ public class Customers_StepDef {
     }
 
 
+
+    @And("I add {string} and {string} path parameters and values from recent added item")
+    public void iAddAndPathParametersAndValuesFromRecentAddedItem(String pathParam1, String pathParam2) {
+        Map<String, String> mapOfParams = new HashMap<>();
+        mapOfParams.put(pathParam1, getOrderId());
+        mapOfParams.put(pathParam2, getItemId());
+        requestSpecification = pathGivenMapAsPathParams(mapOfParams);
+    }
+
+    @And("I add {string} and {string} path parameters, {string} and {string} as values")
+    public void iAddAndPathParametersAndAsValues(String pathParam1, String pathParam2, String value1, String value2) {
+        Map<String, String> mapOfParams = new HashMap<>();
+        mapOfParams.put(pathParam1, value1);
+        mapOfParams.put(pathParam2, value2);
+        requestSpecification = pathGivenMapAsPathParams(mapOfParams);
+    }
 }
 
 
