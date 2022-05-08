@@ -17,7 +17,7 @@ Feature: Products API tests
   Scenario: Create a product
     And I set "Content-Type" http header to "application/json"
     And I set http request body to "product pojo"
-    When I send "POST " request
+    When I send "POST  " request
     Then http response code should be 201
 
 

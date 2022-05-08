@@ -70,6 +70,11 @@ public class Default_StepDef {
         response = RestAssured.given().pathParam("id", returnPostedProductId()).when().get("{id}");
     }
 
+    @And("I send {string} request for deleted vendor")
+    public void iSendRequestForDeletedVendor(String request) {
+        response = RestAssured.given().pathParam("id", returnPostedVendorId()).when().get("{id}");
+    }
+
 
     @And("I add {string} as path param, and {string} as value")
     public void iAddAsPathParamAndAsValue(String pathParam, String value) {
@@ -101,6 +106,12 @@ public class Default_StepDef {
     @And("I add {string} as path parameter and posted product id as value")
     public void iAddAsPathParameterAndPostedProductIdAsValue(String pathParam) {
         requestSpecification = pathParamForDeleteProduct(pathParam);
+    }
+
+
+    @And("I add {string} as path parameter and posted vendor id as value")
+    public void iAddAsPathParameterAndPostedVendorIdAsValue(String pathParam) {
+        requestSpecification = pathParamForDeleteVendor(pathParam);
     }
 
 

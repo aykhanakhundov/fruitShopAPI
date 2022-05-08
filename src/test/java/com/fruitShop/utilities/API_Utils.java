@@ -6,6 +6,7 @@ import static io.restassured.RestAssured.*;
 import com.fruitShop.api.pojo.Customer;
 import com.fruitShop.api.pojo.Item;
 import com.fruitShop.api.pojo.Product;
+import com.fruitShop.api.pojo.Vendor;
 import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -23,6 +24,7 @@ public class API_Utils {
     static Faker faker;
     static int postedCustomerId;
     static int postedProductId;
+    static int postedVendorId;
     static int itemId;
 
     public static void setBasePath(String basePath) {
@@ -42,6 +44,10 @@ public class API_Utils {
                 Response response1 = given(requestSpecification).when().post();
                 postedProductId = getPostedProductId(response1, getProperty("product_id_path"));
                 return response1;
+            case " POST ":
+                Response response2 = given(requestSpecification).when().post();
+                postedVendorId = getPostedVendorId(response2, getProperty("vendor_id_path"));
+                return response2;
             case "PUT":
                 return given(requestSpecification).when().put(getProperty("id_path_param"));
             case "DELETE":
@@ -89,6 +95,11 @@ public class API_Utils {
         return Integer.parseInt(product_url.substring(product_url.lastIndexOf('/') + 1));
     }
 
+    public static int getPostedVendorId(Response response, String path) {
+        String product_url = response.jsonPath().getString("vendor_url");
+        return Integer.parseInt(product_url.substring(product_url.lastIndexOf('/') + 1));
+    }
+
 
     public static int returnPostedCustomerId() {
         return postedCustomerId;
@@ -96,6 +107,10 @@ public class API_Utils {
 
     public static int returnPostedProductId() {
         return postedProductId;
+    }
+
+    public static int returnPostedVendorId() {
+        return postedVendorId;
     }
 
     public static boolean responseBodyPathContainsGivenList(Response response, String path, List<String> givenList) {
@@ -131,6 +146,8 @@ public class API_Utils {
                 return given(requestSpecification).body(setProduct());
             case "product patch":
                 return given(requestSpecification).body(mapForPatchRequestProduct());
+            case "vendor pojo":
+                return given(requestSpecification).body(setVendor());
             default:
                 throw new DefaultException();
         }
@@ -165,6 +182,9 @@ public class API_Utils {
         return given().pathParam(pathParam, returnPostedProductId());
     }
 
+    public static RequestSpecification pathParamForDeleteVendor(String pathParam) {
+        return given().pathParam(pathParam, returnPostedVendorId());
+    }
 
     public static boolean responseBodyPathEqualsToGivenString(Response response, String path, String givenStr) {
         return response.jsonPath().getString(path).equals(givenStr);
@@ -232,4 +252,14 @@ public class API_Utils {
         product.setVendorUrl(getProperty("vendor_url"));
         return product;
     }
+
+
+    public static Vendor setVendor(){
+        Vendor vendor = new Vendor();
+        faker = new Faker();
+        vendor.setName(faker.company().name());
+        return vendor;
+    }
+
+
 }
