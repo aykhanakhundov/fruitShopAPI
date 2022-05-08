@@ -2,13 +2,16 @@ package com.fruitShop.utilities;
 
 import static com.fruitShop.utilities.ConfigurationReader.getProperty;
 import static io.restassured.RestAssured.*;
+
 import com.fruitShop.api.pojo.Customer;
 import com.fruitShop.api.pojo.Item;
+import com.fruitShop.api.pojo.Product;
 import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +20,9 @@ import java.util.Map;
 public class API_Utils {
 
 
+    static Faker faker;
     static int postedCustomerId;
+    static int postedProductId;
     static int itemId;
 
     public static void setBasePath(String basePath) {
@@ -33,6 +38,10 @@ public class API_Utils {
                 Response response = given(requestSpecification).when().post();
                 postedCustomerId = getPostedCustomerId(response, getProperty("customer_id_path"));
                 return response;
+            case "POST ":
+                Response response1 = given(requestSpecification).when().post();
+                postedProductId = getPostedProductId(response1, getProperty("product_id_path"));
+                return response1;
             case "PUT":
                 return given(requestSpecification).when().put(getProperty("id_path_param"));
             case "DELETE":
@@ -59,6 +68,10 @@ public class API_Utils {
                 return given(requestSpecification).when().post(endpoint);
             case "DELETE":
                 return given(requestSpecification).when().delete(endpoint);
+            case "PATCH":
+                return given(requestSpecification).when().patch(endpoint);
+            case "PUT":
+                return given(requestSpecification).when().put(endpoint);
             default:
                 throw new DefaultException();
         }
@@ -70,10 +83,20 @@ public class API_Utils {
         return Integer.parseInt(customer_url.substring(customer_url.lastIndexOf('/') + 1));
     }
 
+
+    public static int getPostedProductId(Response response, String path) {
+        String product_url = response.jsonPath().getString("product_url");
+        return Integer.parseInt(product_url.substring(product_url.lastIndexOf('/') + 1));
+    }
+
+
     public static int returnPostedCustomerId() {
         return postedCustomerId;
     }
 
+    public static int returnPostedProductId() {
+        return postedProductId;
+    }
 
     public static boolean responseBodyPathContainsGivenList(Response response, String path, List<String> givenList) {
         return response.jsonPath().getList(path).containsAll(givenList);
@@ -104,13 +127,17 @@ public class API_Utils {
                 return given(requestSpecification).body(setCustomerMapForPut());
             case "item pojo":
                 return given(requestSpecification).body(setItem());
+            case "product pojo":
+                return given(requestSpecification).body(setProduct());
+            case "product patch":
+                return given(requestSpecification).body(mapForPatchRequestProduct());
             default:
                 throw new DefaultException();
         }
     }
 
     public static Customer setCustomer() {
-        Faker faker = new Faker();
+        faker = new Faker();
         Customer customer = new Customer();
         customer.setFirstName(faker.name().firstName());
         customer.setLastName(faker.name().lastName());
@@ -121,7 +148,7 @@ public class API_Utils {
 
 
     public static Map<String, String> setCustomerMapForPost() {
-        Faker faker = new Faker();
+        faker = new Faker();
         Map<String, String> customerMapForPost = new HashMap<>();
         customerMapForPost.put("firstname", faker.name().firstName());
         customerMapForPost.put("lastname", faker.name().lastName());
@@ -130,9 +157,14 @@ public class API_Utils {
     }
 
 
-    public static RequestSpecification pathParamForDelete() {
-        return given().pathParam("id", returnPostedCustomerId());
+    public static RequestSpecification pathParamForDelete(String pathParam) {
+        return given().pathParam(pathParam, returnPostedCustomerId());
     }
+
+    public static RequestSpecification pathParamForDeleteProduct(String pathParam) {
+        return given().pathParam(pathParam, returnPostedProductId());
+    }
+
 
     public static boolean responseBodyPathEqualsToGivenString(Response response, String path, String givenStr) {
         return response.jsonPath().getString(path).equals(givenStr);
@@ -154,6 +186,14 @@ public class API_Utils {
         return customerMapForPatch;
     }
 
+
+    public static Map<String, String> mapForPatchRequestProduct() {
+        Map<String, String> productMapForPatch = new HashMap<>();
+        productMapForPatch.put("name", "update for PATCH request");
+        return productMapForPatch;
+    }
+
+
     public static Map<String, String> setCustomerMapForPut() {
         Map<String, String> customerMapForPost = new HashMap<>();
         customerMapForPost.put("firstname", "PUT Request TEST");
@@ -164,7 +204,7 @@ public class API_Utils {
 
     public static Item setItem() {
         Item itemPojo = new Item();
-        Faker faker = new Faker();
+        faker = new Faker();
         itemPojo.setQuantity(faker.number().numberBetween(1, 10));
         itemPojo.setPrice(faker.number().randomDouble(2, 1, 10));
         itemPojo.setItemUrl(getProperty("item_url"));
@@ -183,4 +223,13 @@ public class API_Utils {
     }
 
 
+    public static Product setProduct() {
+        Product product = new Product();
+        faker = new Faker();
+        product.setName(faker.food().fruit());
+        product.setPrice(faker.number().randomDouble(2, 1, 100));
+        product.setCategoryUrl(getProperty("category_url"));
+        product.setVendorUrl(getProperty("vendor_url"));
+        return product;
+    }
 }

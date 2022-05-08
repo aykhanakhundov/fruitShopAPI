@@ -56,13 +56,18 @@ public class Default_StepDef {
     }
 
     @And("I add {string} as path parameter and posted customer id as value")
-    public void iAddAsPathParameterAndPostedCustomerIdAsValue(String endPoint) {
-        requestSpecification = pathParamForDelete();
+    public void iAddAsPathParameterAndPostedCustomerIdAsValue(String pathParam) {
+        requestSpecification = pathParamForDelete(pathParam);
     }
 
     @And("I send {string} request for deleted customer")
     public void iSendRequestForDeletedCustomer(String request) {
         response = RestAssured.given().pathParam("id", returnPostedCustomerId()).when().get("{id}");
+    }
+
+    @And("I send {string} request for deleted product")
+    public void iSendRequestForDeletedProduct(String request) {
+        response = RestAssured.given().pathParam("id", returnPostedProductId()).when().get("{id}");
     }
 
 
@@ -92,6 +97,13 @@ public class Default_StepDef {
         mapOfParams.put(pathParam2, value2);
         requestSpecification = pathGivenMapAsPathParams(mapOfParams);
     }
+
+    @And("I add {string} as path parameter and posted product id as value")
+    public void iAddAsPathParameterAndPostedProductIdAsValue(String pathParam) {
+        requestSpecification = pathParamForDeleteProduct(pathParam);
+    }
+
+
 }
 
 

@@ -23,7 +23,7 @@ Feature: Customers API tests
 
 
   Scenario: Delete a customer
-    And I add "{id}" as path parameter and posted customer id as value
+    And I add "id" as path parameter and posted customer id as value
     When I send "DELETE" request
     Then http response code should be 200
     And I send "GET" request for deleted customer
