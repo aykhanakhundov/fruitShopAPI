@@ -1,6 +1,7 @@
 @regression
 Feature: Vendors API tests
 
+
   Background:
     Given base path is "/vendors/"
     And I set "Accept" http header to "application/json"
@@ -45,7 +46,3 @@ Feature: Vendors API tests
     And http response body matches "Get Products of Vendor" schema
     And http response body path "products.name[0]" should be as "Coconut"
     And http response body path "products.name[1]" should be as "Dragon Fruit"
-
-
-
-

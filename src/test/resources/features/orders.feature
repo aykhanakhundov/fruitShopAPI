@@ -81,16 +81,3 @@ Feature: Orders API tests
     When I send "GET" request to "{oid}/items/{iid}" endpoint
     Then http response code should be 200
     And http response body matches "Get Item of Order" schema
-
-
-
-
-
-
-
-
-
-
-
-
-

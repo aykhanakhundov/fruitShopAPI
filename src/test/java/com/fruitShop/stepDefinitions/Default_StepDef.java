@@ -4,7 +4,6 @@ import static com.fruitShop.utilities.API_Utils.*;
 import static org.junit.Assert.*;
 import io.cucumber.java.en.*;
 import io.restassured.RestAssured;
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import java.util.HashMap;
@@ -17,6 +16,7 @@ public class Default_StepDef {
     Response response;
     RequestSpecification requestSpecification;
 
+
     @Given("base path is {string}")
     public void base_path_is(String basePath) {
         setBasePath(basePath);
@@ -27,6 +27,7 @@ public class Default_StepDef {
     public void iSendRequest(String request) {
         response = sendRequest(request, requestSpecification);
     }
+
 
     @When("I send {string} request to {string} endpoint")
     public void iSendRequestToEndpoint(String request, String endpoint) {
@@ -40,36 +41,43 @@ public class Default_StepDef {
         assertEquals(statusCode, response.statusCode());
     }
 
+
     @And("http response body path  {string} should contain:")
     public void httpResponseBodyPathShouldContain(String path, List<String> expectedValuesList) {
         response.prettyPrint();
         assertTrue(responseBodyPathContainsGivenList(response, path, expectedValuesList));
     }
 
+
     @And("I set {string} http header to {string}")
     public void iSetHttpHeaderTo(String header, String value) {
         requestSpecification = setHeader(header, value);
     }
+
 
     @And("I set http request body to {string}")
     public void iSetHttpRequestBodyTo(String body) {
         requestSpecification = setBody(body, this.requestSpecification);
     }
 
+
     @And("I add {string} as path parameter and posted customer id as value")
     public void iAddAsPathParameterAndPostedCustomerIdAsValue(String pathParam) {
         requestSpecification = pathParamForDelete(pathParam);
     }
+
 
     @And("I send {string} request for deleted customer")
     public void iSendRequestForDeletedCustomer(String request) {
         response = RestAssured.given().pathParam("id", returnPostedCustomerId()).when().get("{id}");
     }
 
+
     @And("I send {string} request for deleted product")
     public void iSendRequestForDeletedProduct(String request) {
         response = RestAssured.given().pathParam("id", returnPostedProductId()).when().get("{id}");
     }
+
 
     @And("I send {string} request for deleted vendor")
     public void iSendRequestForDeletedVendor(String request) {
@@ -81,6 +89,7 @@ public class Default_StepDef {
     public void iAddAsPathParamAndAsValue(String pathParam, String value) {
         requestSpecification = pathGivenValueToGivenParam(pathParam, value);
     }
+
 
     @And("http response body path {string} should be as {string}")
     public void httpResponseBodyPathShouldBeAs(String pathParam, String value) {
@@ -96,6 +105,7 @@ public class Default_StepDef {
         requestSpecification = pathGivenMapAsPathParams(mapOfParams);
     }
 
+
     @And("I add {string} and {string} path parameters, {string} and {string} as values")
     public void iAddAndPathParametersAndAsValues(String pathParam1, String pathParam2, String value1, String value2) {
         Map<String, String> mapOfParams = new HashMap<>();
@@ -104,10 +114,12 @@ public class Default_StepDef {
         requestSpecification = pathGivenMapAsPathParams(mapOfParams);
     }
 
+
     @And("I add {string} as path parameter and posted product id as value")
     public void iAddAsPathParameterAndPostedProductIdAsValue(String pathParam) {
         requestSpecification = pathParamForDeleteProduct(pathParam);
     }
+
 
 
     @And("I add {string} as path parameter and posted vendor id as value")
@@ -121,9 +133,3 @@ public class Default_StepDef {
         matchesGivenJsonSchema(response, schemaName);
     }
 }
-
-
-
-
-
-

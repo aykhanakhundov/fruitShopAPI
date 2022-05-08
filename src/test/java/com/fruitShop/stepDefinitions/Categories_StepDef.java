@@ -13,12 +13,12 @@ public class Categories_StepDef {
     Response response = null;
     RequestSpecification requestSpecification;
 
+
     @Given("I send {string} request to {string}")
     public void i_send_request_to(String request, String endpoint) {
-        if (request.equals("GET")) {
-            response = getCategories(endpoint, requestSpecification);
-        }
+        if (request.equals("GET")) response = getCategories(endpoint, requestSpecification);
     }
+
 
     @Then("http response code should be as {int}")
     public void httpResponseCodeShouldBe(int statusCode) {
@@ -42,6 +42,4 @@ public class Categories_StepDef {
     public void httpResponseBodyPathShouldBe(String pathParam, String value) {
         assertTrue(responseBodyPathEqualsToGivenString(response, pathParam, value));
     }
-
-
 }

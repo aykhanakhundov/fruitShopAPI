@@ -23,7 +23,6 @@ Feature: Products API tests
     And http response body matches "Post Product" schema
 
 
-
   Scenario: Delete a product
     And I add "id" as path parameter and posted product id as value
     When I send "DELETE" request
@@ -58,11 +57,3 @@ Feature: Products API tests
     When I send "PUT" request to "{id}" endpoint
     Then http response code should be 200
     And http response body matches "Put Product" schema
-
-
-
-
-
-
-
-

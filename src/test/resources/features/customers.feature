@@ -11,10 +11,11 @@ Feature: Customers API tests
     Then http response code should be 200
     And http response body matches "Get All Customers" schema
     And http response body path  "customers.firstname" should contain:
-      | David  |
-      | Anne   |
-      | Alice |
-      | Michael   |
+      | David   |
+      | Anne    |
+      | Alice   |
+      | Michael |
+
 
   Scenario: Create a customer
     And I set "Content-Type" http header to "application/json"
@@ -65,22 +66,9 @@ Feature: Customers API tests
     When I send "POST " request to "{id}/orders/" endpoint
     Then http response code should be 201
 
+
   Scenario: Get the orders of a customer
     And I add "id" as path param, and "102" as value
     When I send "GET" request to "{id}/orders/" endpoint
     Then http response code should be 200
     And http response body path "orders.order_url[0]" should be as "/shop/orders/7960"
-
-
-
-
-
-
-
-
-
-
-
-
-
-

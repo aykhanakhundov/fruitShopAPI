@@ -3,7 +3,6 @@ package com.fruitShop.utilities;
 import static com.fruitShop.utilities.ConfigurationReader.getProperty;
 import static io.restassured.RestAssured.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-
 import com.fruitShop.api.pojo.Customer;
 import com.fruitShop.api.pojo.Item;
 import com.fruitShop.api.pojo.Product;
@@ -13,7 +12,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +19,12 @@ import java.util.Map;
 
 public class API_Utils {
 
-
     static Faker faker;
     static int postedCustomerId;
     static int postedProductId;
     static int postedVendorId;
     static int itemId;
+
 
     public static void setBasePath(String basePath) {
         RestAssured.basePath = basePath;
@@ -63,7 +61,6 @@ public class API_Utils {
 
     public static Response sendRequestToGivenEndpoint(String request, String endpoint, RequestSpecification requestSpecification) {
         switch (request) {
-
             case "GET":
                 return given(requestSpecification).when().get(endpoint);
             case "POST":
@@ -96,6 +93,7 @@ public class API_Utils {
         return Integer.parseInt(product_url.substring(product_url.lastIndexOf('/') + 1));
     }
 
+
     public static int getPostedVendorId(Response response, String path) {
         String product_url = response.jsonPath().getString("vendor_url");
         return Integer.parseInt(product_url.substring(product_url.lastIndexOf('/') + 1));
@@ -106,13 +104,16 @@ public class API_Utils {
         return postedCustomerId;
     }
 
+
     public static int returnPostedProductId() {
         return postedProductId;
     }
 
+
     public static int returnPostedVendorId() {
         return postedVendorId;
     }
+
 
     public static boolean responseBodyPathContainsGivenList(Response response, String path, List<String> givenList) {
         return response.jsonPath().getList(path).containsAll(givenList);
@@ -154,6 +155,7 @@ public class API_Utils {
         }
     }
 
+
     public static Customer setCustomer() {
         faker = new Faker();
         Customer customer = new Customer();
@@ -179,13 +181,16 @@ public class API_Utils {
         return given().pathParam(pathParam, returnPostedCustomerId());
     }
 
+
     public static RequestSpecification pathParamForDeleteProduct(String pathParam) {
         return given().pathParam(pathParam, returnPostedProductId());
     }
 
+
     public static RequestSpecification pathParamForDeleteVendor(String pathParam) {
         return given().pathParam(pathParam, returnPostedVendorId());
     }
+
 
     public static boolean responseBodyPathEqualsToGivenString(Response response, String path, String givenStr) {
         return response.jsonPath().getString(path).equals(givenStr);
@@ -195,6 +200,7 @@ public class API_Utils {
     public static RequestSpecification pathGivenValueToGivenParam(String pathParam, String value) {
         return given().contentType(ContentType.JSON).pathParam(pathParam, value);
     }
+
 
     public static RequestSpecification pathGivenMapAsPathParams(Map<String, String> mapOfParams) {
         return given().contentType(ContentType.JSON).pathParams(mapOfParams);
@@ -316,14 +322,8 @@ public class API_Utils {
             case "Get Single Customer":
                 response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/getSingleCustomerSchema.json"));
                 break;
-
-
-
-
             default:
                 throw new DefaultException("NO SUCH SCHEMA!");
-
-
         }
     }
 

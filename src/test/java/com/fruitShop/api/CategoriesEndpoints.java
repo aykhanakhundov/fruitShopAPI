@@ -26,7 +26,4 @@ public class CategoriesEndpoints {
     public static RequestSpecification addPathParameter(String pathParam, String value){
         return given().pathParam(pathParam, value);
     }
-
-
-
 }
