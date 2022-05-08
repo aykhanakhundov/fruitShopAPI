@@ -2,6 +2,7 @@ package com.fruitShop.utilities;
 
 import static com.fruitShop.utilities.ConfigurationReader.getProperty;
 import static io.restassured.RestAssured.*;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 import com.fruitShop.api.pojo.Customer;
 import com.fruitShop.api.pojo.Item;
@@ -55,7 +56,7 @@ public class API_Utils {
             case "PATCH":
                 return given(requestSpecification).when().patch(getProperty("id_path_param"));
             default:
-                throw new DefaultException();
+                throw new DefaultException("NO SUCH REQUEST!");
         }
     }
 
@@ -79,7 +80,7 @@ public class API_Utils {
             case "PUT":
                 return given(requestSpecification).when().put(endpoint);
             default:
-                throw new DefaultException();
+                throw new DefaultException("NO SUCH REQUEST!");
         }
     }
 
@@ -125,7 +126,7 @@ public class API_Utils {
             case "Content-Type":
                 return given().contentType(value);
             default:
-                throw new DefaultException();
+                throw new DefaultException("NO SUCH HEADER!");
         }
     }
 
@@ -149,7 +150,7 @@ public class API_Utils {
             case "vendor pojo":
                 return given(requestSpecification).body(setVendor());
             default:
-                throw new DefaultException();
+                throw new DefaultException("NO SUCH BODY!");
         }
     }
 
@@ -254,11 +255,76 @@ public class API_Utils {
     }
 
 
-    public static Vendor setVendor(){
+    public static Vendor setVendor() {
         Vendor vendor = new Vendor();
         faker = new Faker();
         vendor.setName(faker.company().name());
         return vendor;
+    }
+
+
+    public static void matchesGivenJsonSchema(Response response, String schemaName) {
+        switch (schemaName) {
+            case "Get All Vendors":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/getAllVendorsSchema.json"));
+                break;
+            case "Get Single Vendor":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/getSingleVendorSchema.json"));
+                break;
+            case "Get Products of Vendor":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/getProductsOfVendorSchema.json"));
+                break;
+            case "Get All Products":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/getAllProductsSchema.json"));
+                break;
+            case "Get Single Product":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/getSingleProductSchema.json"));
+                break;
+            case "Patch Product":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/patchProductSchema.json"));
+                break;
+            case "Post Product":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/postProductSchema.json"));
+                break;
+            case "Put Product":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/putProductSchema.json"));
+                break;
+            case "Post Vendor":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/postVendorSchema.json"));
+                break;
+            case "Get Orders":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/getAllOrdersSchema.json"));
+                break;
+            case "Get Single Order":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/getSingleOrderSchema.json"));
+                break;
+            case "Get Items of Order":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/getItemsOfOrderSchema.json"));
+                break;
+            case "Post Item to Order":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/postItemToOrderSchema.json"));
+                break;
+            case "Get Item of Order":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/getAnItemOfOrderSchema.json"));
+                break;
+            case "Get All Customers":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/getAllCustomersSchema.json"));
+                break;
+            case "Post Customer":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/postCustomerSchema.json"));
+                break;
+            case "Get Single Customer":
+                response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/getSingleCustomerSchema.json"));
+                break;
+
+
+
+
+            default:
+                throw new DefaultException("NO SUCH SCHEMA!");
+
+
+        }
     }
 
 

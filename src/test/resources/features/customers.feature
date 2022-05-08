@@ -9,6 +9,7 @@ Feature: Customers API tests
   Scenario: Get all the customers
     When I send "GET" request
     Then http response code should be 200
+    And http response body matches "Get All Customers" schema
     And http response body path  "customers.firstname" should contain:
       | David  |
       | Anne   |
@@ -20,6 +21,7 @@ Feature: Customers API tests
     And I set http request body to "customer pojo"
     When I send "POST" request
     Then http response code should be 201
+    And http response body matches "Post Customer" schema
 
 
   Scenario: Delete a customer
@@ -34,6 +36,7 @@ Feature: Customers API tests
     And I add "id" as path param, and "342" as value
     When I send "GET" request to "{id}" endpoint
     Then http response code should be 200
+    And http response body matches "Get Single Customer" schema
     And http response body path "firstname" should be as "Alice"
     And http response body path "lastname" should be as "Eastman"
 

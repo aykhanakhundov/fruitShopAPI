@@ -10,15 +10,18 @@ Feature: Products API tests
   Scenario: Get all the products
     When I send "GET" request
     Then http response code should be 200
-    And http response body path "products.name[2]" should be as "Pineapples"
-    And http response body path "products.name[4]" should be as "Cranberries"
+    And http response body matches "Get All Products" schema
+    And http response body path "products.name[1]" should be as "Pineapples"
+    And http response body path "products.name[2]" should be as "Dried Pineapples"
 
 
   Scenario: Create a product
     And I set "Content-Type" http header to "application/json"
     And I set http request body to "product pojo"
-    When I send "POST  " request
+    When I send "POST " request
     Then http response code should be 201
+    And http response body matches "Post Product" schema
+
 
 
   Scenario: Delete a product
@@ -33,6 +36,7 @@ Feature: Products API tests
     And I add "id" as path param, and "90" as value
     When I send "GET" request to "{id}" endpoint
     Then http response code should be 200
+    And http response body matches "Get Single Product" schema
     And http response body path "name" should be as "Raspberries"
     And http response body path "vendor_url" should be as "/shop/vendors/672"
 
@@ -43,16 +47,17 @@ Feature: Products API tests
     And I set http request body to "product patch"
     When I send "PATCH" request to "{id}" endpoint
     Then http response code should be 200
+    And http response body matches "Patch Product" schema
     And http response body path "name" should be as "update for PATCH request"
 
 
-
-    Scenario: Replace (PUT) a product by new data
-      And I set "Content-Type" http header to "application/json"
-      And I add "id" as path param, and "18" as value
-      And I set http request body to "product pojo"
-      When I send "PUT" request to "{id}" endpoint
-      Then http response code should be 200
+  Scenario: Replace (PUT) a product by new data
+    And I set "Content-Type" http header to "application/json"
+    And I add "id" as path param, and "18" as value
+    And I set http request body to "product pojo"
+    When I send "PUT" request to "{id}" endpoint
+    Then http response code should be 200
+    And http response body matches "Put Product" schema
 
 
 

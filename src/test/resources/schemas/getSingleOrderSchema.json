@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "customer_url": {
+      "type": "string"
+    },
+    "actions": {
+      "type": "object",
+      "properties": {
+        "cancel": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "url",
+            "method"
+          ]
+        }
+      },
+      "required": [
+        "cancel"
+      ]
+    },
+    "items_url": {
+      "type": "string"
+    },
+    "total": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "createdAt",
+    "updatedAt",
+    "state",
+    "customer_url",
+    "actions",
+    "items_url",
+    "total"
+  ]
+}

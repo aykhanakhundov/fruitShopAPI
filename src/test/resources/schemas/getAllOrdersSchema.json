@@ -1,0 +1,224 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "next_url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "count",
+        "limit",
+        "page",
+        "next_url"
+      ]
+    },
+    "orders": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "createdAt": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "order_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "createdAt",
+            "state",
+            "order_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "createdAt": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "order_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "createdAt",
+            "state",
+            "order_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "createdAt": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "order_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "createdAt",
+            "state",
+            "order_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "createdAt": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "order_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "createdAt",
+            "state",
+            "order_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "createdAt": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "order_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "createdAt",
+            "state",
+            "order_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "createdAt": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "order_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "createdAt",
+            "state",
+            "order_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "createdAt": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "order_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "createdAt",
+            "state",
+            "order_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "createdAt": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "order_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "createdAt",
+            "state",
+            "order_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "createdAt": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "order_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "createdAt",
+            "state",
+            "order_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "createdAt": {
+              "type": "string"
+            },
+            "order_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "createdAt",
+            "order_url"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "meta",
+    "orders"
+  ]
+}

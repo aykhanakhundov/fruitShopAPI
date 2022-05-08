@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "default": {},
+  "title": "Root Schema",
+  "required": [
+    "name",
+    "price",
+    "category_url",
+    "vendor_url"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "default": "",
+      "title": "The name Schema",
+      "examples": [
+        "Orange"
+      ]
+    },
+    "price": {
+      "type": "number",
+      "default": 0.0,
+      "title": "The price Schema",
+      "examples": [
+        4.99
+      ]
+    },
+    "category_url": {
+      "type": "string",
+      "default": "",
+      "title": "The category_url Schema",
+      "examples": [
+        "/shop/categories/Fruits"
+      ]
+    },
+    "vendor_url": {
+      "type": "string",
+      "default": "",
+      "title": "The vendor_url Schema",
+      "examples": [
+        "/shop/vendors/672"
+      ]
+    }
+  },
+  "examples": [{
+    "name": "Orange",
+    "price": 4.99,
+    "category_url": "/shop/categories/Fruits",
+    "vendor_url": "/shop/vendors/672"
+  }]
+}

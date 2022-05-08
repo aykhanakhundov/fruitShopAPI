@@ -4,6 +4,7 @@ import static com.fruitShop.utilities.API_Utils.*;
 import static org.junit.Assert.*;
 import io.cucumber.java.en.*;
 import io.restassured.RestAssured;
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import java.util.HashMap;
@@ -115,6 +116,10 @@ public class Default_StepDef {
     }
 
 
+    @And("http response body matches {string} schema")
+    public void httpResponseBodyMatchesSchema(String schemaName) {
+        matchesGivenJsonSchema(response, schemaName);
+    }
 }
 
 

@@ -9,6 +9,7 @@ Feature: Vendors API tests
   Scenario: Get all the vendors
     When I send "GET" request
     Then http response code should be 200
+    And http response body matches "Get All Vendors" schema
     And http response body path "vendors.name[0]" should be as "Western Tasty Fruits Ltd."
     And http response body path "vendors.name[1]" should be as "Exotic Fruits Company"
 
@@ -18,6 +19,7 @@ Feature: Vendors API tests
     And I set http request body to "vendor pojo"
     When I send " POST " request
     Then http response code should be 201
+    And http response body matches "Post Vendor" schema
 
 
   Scenario: Delete a vendor
@@ -32,6 +34,7 @@ Feature: Vendors API tests
     And I add "id" as path param, and "811" as value
     When I send "GET" request to "{id}" endpoint
     Then http response code should be 200
+    And http response body matches "Get Single Vendor" schema
     And http response body path "name" should be as "Murray, Durgan and Reynolds"
 
 
@@ -39,6 +42,7 @@ Feature: Vendors API tests
     And I add "id" as path param, and "32" as value
     When I send "GET" request to "{id}/products/" endpoint
     Then http response code should be 200
+    And http response body matches "Get Products of Vendor" schema
     And http response body path "products.name[0]" should be as "Coconut"
     And http response body path "products.name[1]" should be as "Dragon Fruit"
 

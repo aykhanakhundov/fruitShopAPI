@@ -1,0 +1,209 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "limit",
+        "page"
+      ]
+    },
+    "customers": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "customer_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "firstname",
+            "lastname",
+            "customer_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "customer_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "firstname",
+            "lastname",
+            "customer_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "customer_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "firstname",
+            "lastname",
+            "customer_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "customer_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "firstname",
+            "lastname",
+            "customer_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "customer_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "firstname",
+            "lastname",
+            "customer_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "customer_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "firstname",
+            "lastname",
+            "customer_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "customer_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "firstname",
+            "lastname",
+            "customer_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "orders_url": {
+              "type": "string"
+            },
+            "customer_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "firstname",
+            "lastname",
+            "orders_url",
+            "customer_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "customer_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "firstname",
+            "lastname",
+            "customer_url"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "meta",
+    "customers"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "order_url": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "quantity": {
+              "type": "integer"
+            },
+            "price": {
+              "type": "number"
+            },
+            "item_url": {
+              "type": "string"
+            },
+            "product_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "quantity",
+            "price",
+            "item_url",
+            "product_url"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "quantity": {
+              "type": "integer"
+            },
+            "price": {
+              "type": "number"
+            },
+            "item_url": {
+              "type": "string"
+            },
+            "product_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "quantity",
+            "price",
+            "item_url",
+            "product_url"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "order_url",
+    "items"
+  ]
+}

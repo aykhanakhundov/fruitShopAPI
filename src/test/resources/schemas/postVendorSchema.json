@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "default": {},
+  "title": "Root Schema",
+  "required": [
+    "name",
+    "vendor_url"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "default": "",
+      "title": "The name Schema",
+      "examples": [
+        "slalldl"
+      ]
+    },
+    "vendor_url": {
+      "type": "string",
+      "default": "",
+      "title": "The vendor_url Schema",
+      "examples": [
+        "/shop/vendors/826"
+      ]
+    }
+  },
+  "examples": [{
+    "name": "slalldl",
+    "vendor_url": "/shop/vendors/826"
+  }]
+}

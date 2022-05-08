@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "default": {},
+  "title": "Root Schema",
+  "required": [
+    "name",
+    "price",
+    "photo_url",
+    "category_url",
+    "vendor_url"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "default": "",
+      "title": "The name Schema",
+      "examples": [
+        "update for PATCH request"
+      ]
+    },
+    "price": {
+      "type": "number",
+      "default": 0.0,
+      "title": "The price Schema",
+      "examples": [
+        2.2
+      ]
+    },
+    "photo_url": {
+      "type": "string",
+      "default": "",
+      "title": "The photo_url Schema",
+      "examples": [
+        "/shop/products/10/photo"
+      ]
+    },
+    "category_url": {
+      "type": "string",
+      "default": "",
+      "title": "The category_url Schema",
+      "examples": [
+        "/shop/categories/Fruits"
+      ]
+    },
+    "vendor_url": {
+      "type": "string",
+      "default": "",
+      "title": "The vendor_url Schema",
+      "examples": [
+        "/shop/vendors/672"
+      ]
+    }
+  },
+  "examples": [{
+    "name": "update for PATCH request",
+    "price": 2.2,
+    "photo_url": "/shop/products/10/photo",
+    "category_url": "/shop/categories/Fruits",
+    "vendor_url": "/shop/vendors/672"
+  }]
+}

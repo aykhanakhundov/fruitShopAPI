@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "default": {},
+  "title": "Root Schema",
+  "required": [
+    "name",
+    "products_url"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "default": "",
+      "title": "The name Schema",
+      "examples": [
+        "Reichel-Hermann"
+      ]
+    },
+    "products_url": {
+      "type": "string",
+      "default": "",
+      "title": "The products_url Schema",
+      "examples": [
+        "/shop/vendors/812/products/"
+      ]
+    }
+  },
+  "examples": [{
+    "name": "Reichel-Hermann",
+    "products_url": "/shop/vendors/812/products/"
+  }]
+}

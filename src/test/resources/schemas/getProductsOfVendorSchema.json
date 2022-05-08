@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "default": {},
+  "title": "Root Schema",
+  "required": [
+    "products"
+  ],
+  "properties": {
+    "products": {
+      "type": "array",
+      "default": [],
+      "title": "The products Schema",
+      "items": {
+        "type": "object",
+        "title": "A Schema",
+        "required": [
+          "name",
+          "product_url"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "The name Schema",
+            "examples": [
+              "Coconut",
+              "Dragon Fruit",
+              "Figs",
+              "Horn Cucumber",
+              "Kaki",
+              "Lychee",
+              "Rambutan",
+              "string"
+            ]
+          },
+          "product_url": {
+            "type": "string",
+            "title": "The product_url Schema",
+            "examples": [
+              "/shop/products/1",
+              "/shop/products/2",
+              "/shop/products/8",
+              "/shop/products/13",
+              "/shop/products/14",
+              "/shop/products/15",
+              "/shop/products/44",
+              "/shop/products/108"
+            ]
+          }
+        },
+        "examples": [{
+          "name": "Coconut",
+          "product_url": "/shop/products/1"
+        },
+          {
+            "name": "Dragon Fruit",
+            "product_url": "/shop/products/2"
+          },
+          {
+            "name": "Figs",
+            "product_url": "/shop/products/8"
+          },
+          {
+            "name": "Horn Cucumber",
+            "product_url": "/shop/products/13"
+          },
+          {
+            "name": "Kaki",
+            "product_url": "/shop/products/14"
+          },
+          {
+            "name": "Lychee",
+            "product_url": "/shop/products/15"
+          },
+          {
+            "name": "Rambutan",
+            "product_url": "/shop/products/44"
+          },
+          {
+            "name": "string",
+            "product_url": "/shop/products/108"
+          }]
+      },
+      "examples": [
+        [{
+          "name": "Coconut",
+          "product_url": "/shop/products/1"
+        },
+          {
+            "name": "Dragon Fruit",
+            "product_url": "/shop/products/2"
+          },
+          {
+            "name": "Figs",
+            "product_url": "/shop/products/8"
+          },
+          {
+            "name": "Horn Cucumber",
+            "product_url": "/shop/products/13"
+          },
+          {
+            "name": "Kaki",
+            "product_url": "/shop/products/14"
+          },
+          {
+            "name": "Lychee",
+            "product_url": "/shop/products/15"
+          },
+          {
+            "name": "Rambutan",
+            "product_url": "/shop/products/44"
+          },
+          {
+            "name": "string",
+            "product_url": "/shop/products/108"
+          }]
+      ]
+    }
+  },
+  "examples": [{
+    "products": [{
+      "name": "Coconut",
+      "product_url": "/shop/products/1"
+    },
+      {
+        "name": "Dragon Fruit",
+        "product_url": "/shop/products/2"
+      },
+      {
+        "name": "Figs",
+        "product_url": "/shop/products/8"
+      },
+      {
+        "name": "Horn Cucumber",
+        "product_url": "/shop/products/13"
+      },
+      {
+        "name": "Kaki",
+        "product_url": "/shop/products/14"
+      },
+      {
+        "name": "Lychee",
+        "product_url": "/shop/products/15"
+      },
+      {
+        "name": "Rambutan",
+        "product_url": "/shop/products/44"
+      },
+      {
+        "name": "string",
+        "product_url": "/shop/products/108"
+      }]
+  }]
+}
